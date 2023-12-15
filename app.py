@@ -43,7 +43,7 @@ if page == "Edit Data":
                 cabang_perpustakaan_baru = st.selectbox("cabang_perpustakaan", list_doctor, list_doctor.index(cabang_perpustakaan_lama))
                 nama_baru = st.text_input("nama", nama_lama)
                 gender_baru = st.selectbox("gender", list_type_of_book, list_type_of_book.index(gender_lama))
-                type_of_book_baru = st.multiselect("type_of_book", ['cough', 'flu', 'headache', 'stomache'], eval(type_of_book_lama))
+                type_of_book_baru = st.multiselect("type_of_book", ['Novel', 'Buku Motivasi', 'Buku Referensi', 'Buku Sejarah', 'Buku Bisnis dan Keuangan', 'Buku Ilmiah'], eval(type_of_book_lama))
                 title_baru = st.text_input("title", title_lama)
                 author_baru = st.text_input("author", author_lama)
                 waktu_baru = st.time_input("waktu", waktu_lama)
