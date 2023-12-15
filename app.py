@@ -25,13 +25,22 @@ if page == "View Data":
 
 elif page == "Search Data":
     search_criteria = st.selectbox("Select Search Criteria", ["cabang_perpustakaan", "nama", "gender", "type_of_book", "title", "author", "tanggal_pinjam"])
-    search_query = st.text_input(f"Search {search_criteria.capitalize()}", "")
-    
+
+    if search_criteria in ["cabang_perpustakaan", "gender", "type_of_book"]:
+        unique_values = conn.query(f"SELECT DISTINCT {search_criteria} FROM perpustakaan ORDER BY {search_criteria};", ttl="0")[search_criteria].tolist()
+        search_query = st.selectbox(f"Select {search_criteria.replace('_', ' ').capitalize()}", [""] + unique_values)
+    else:
+        search_query = st.text_input(f"Search {search_criteria.capitalize()}", "")
+
     if st.button("Search"):
-        if search_criteria == "type_of_book":
+        if search_criteria == "type_of_book" and search_query:
             data = conn.query(f"SELECT * FROM perpustakaan WHERE {search_criteria} @> ARRAY['{search_query}'] ORDER BY id;", ttl="0").set_index('id')
-        else:
+        elif search_query:
             data = conn.query(f"SELECT * FROM perpustakaan WHERE {search_criteria} ILIKE '%{search_query}%' ORDER BY id;", ttl="0").set_index('id')
+        else:
+            st.warning("Please provide a valid search query.")
+            data = pd.DataFrame()
+        
         st.dataframe(data)
 
 
