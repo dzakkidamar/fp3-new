@@ -1,7 +1,7 @@
 import streamlit as st
 from sqlalchemy import text
 
-st.markdown('Aplikasi Manajemen Data version 1.0')
+st.markdown('✨ Aplikasi Manajemen Data version 1.0')
 
 list_doctor = ['', 'Perpustakaan ITS', 'Perpustakaan Unair', 'Perpustakaan UNESA', 'Perpustakaan Hangtuah', 'Perpustakaan Univ. Ciputra', 'Perpustakaan UPH']
 list_type_of_book = ['', 'male', 'female']
