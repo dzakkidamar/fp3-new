@@ -17,7 +17,7 @@ with conn.session as session:
                                                        type_of_book text, title varchar, author text, tanggal_pinjam date);')
     session.execute(query)
 
-st.header('DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
+st.header('📚 DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
 page = st.sidebar.selectbox("Pilih Menu", ["View Data", "Search Data", "Edit Data"])
 
 if page == "View Data":
