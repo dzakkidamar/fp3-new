@@ -22,8 +22,8 @@ if page == "Edit Data":
     if st.button('Tambah Data'):
         with conn.session as session:
             query = text('INSERT INTO perpustakaan (cabang_perpustakaan, nama, gender, type_of_book, title, author, tanggal_pinjam) \
-                          VALUES (:1, :2, :3, :4, :5, :6, :7, :8);')
-            session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None, '8':None})
+                          VALUES (:1, :2, :3, :4, :5, :6, :7);')
+            session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None})
             session.commit()
 
     data = conn.query('SELECT * FROM perpustakaan ORDER By id;', ttl="0")
