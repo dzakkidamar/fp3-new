@@ -3,6 +3,9 @@ from sqlalchemy import text
 
 st.markdown('✨ Aplikasi Manajemen Data version 1.0')
 
+image_url = "https://cdn.vectorstock.com/i/preview-1x/22/45/sigma-letter-icon-vector-10742245.jpg"
+st.sidebar.image(image_url, caption='MBD FP3', width=100)
+
 list_doctor = ['', 'Perpustakaan ITS', 'Perpustakaan Unair', 'Perpustakaan UNESA', 'Perpustakaan Hangtuah', 'Perpustakaan Univ. Ciputra', 'Perpustakaan UPH']
 list_type_of_book = ['', 'male', 'female']
 
