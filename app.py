@@ -21,7 +21,7 @@ if page == "View Data":
 if page == "Edit Data":
     if st.button('Tambah Data'):
         with conn.session as session:
-            query = text('INSERT INTO perpustakaan (cabang_perpustakaan, nama, gender, type_of_book, title, author, waktu, tanggal_pinjam) \
+            query = text('INSERT INTO perpustakaan (cabang_perpustakaan, nama, gender, type_of_book, title, author, tanggal_pinjam) \
                           VALUES (:1, :2, :3, :4, :5, :6, :7, :8);')
             session.execute(query, {'1':'', '2':'', '3':'', '4':'[]', '5':'', '6':'', '7':None, '8':None})
             session.commit()
@@ -35,7 +35,6 @@ if page == "Edit Data":
         type_of_book_lama = result["type_of_book"]
         title_lama = result["title"]
         author_lama = result["author"]
-        waktu_lama = result["waktu"]
         tanggal_pinjam_lama = result["tanggal_pinjam"]
 
         with st.expander(f'a.n. {nama_lama}'):
@@ -46,7 +45,6 @@ if page == "Edit Data":
                 type_of_book_baru = st.multiselect("type_of_book", ['Novel', 'Buku Motivasi', 'Buku Referensi', 'Buku Sejarah', 'Buku Bisnis dan Keuangan', 'Buku Ilmiah'], eval(type_of_book_lama))
                 title_baru = st.text_input("title", title_lama)
                 author_baru = st.text_input("author", author_lama)
-                waktu_baru = st.time_input("waktu", waktu_lama)
                 tanggal_pinjam_baru = st.date_input("tanggal_pinjam", tanggal_pinjam_lama)
                 
                 col1, col2 = st.columns([1, 6])
@@ -56,10 +54,10 @@ if page == "Edit Data":
                         with conn.session as session:
                             query = text('UPDATE perpustakaan \
                                           SET cabang_perpustakaan=:1, nama=:2, gender=:3, type_of_book=:4, \
-                                          title=:5, author=:6, waktu=:7, tanggal_pinjam=:8 \
-                                          WHERE id=:9;')
+                                          title=:5, author=:6, tanggal_pinjam=:7 \
+                                          WHERE id=:8;')
                             session.execute(query, {'1':cabang_perpustakaan_baru, '2':nama_baru, '3':gender_baru, '4':str(type_of_book_baru), 
-                                                    '5':title_baru, '6':author_baru, '7':waktu_baru, '8':tanggal_pinjam_baru, '9':id})
+                                                    '5':title_baru, '6':author_baru, '7':tanggal_pinjam_baru, '8':id})
                             session.commit()
                             st.experimental_rerun()
                 
