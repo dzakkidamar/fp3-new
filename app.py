@@ -12,6 +12,13 @@ with conn.session as session:
     session.execute(query)
 
 st.header('DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
+
+# New search sidebar section
+search_option = st.sidebar.selectbox("Search Data By", ["All Data", "Cabang Perpustakaan", "Gender", "Type of Book"])
+search_value = ""
+if search_option != "All Data":
+    search_value = st.sidebar.text_input("Enter Search Value")
+
 page = st.sidebar.selectbox("Pilih Menu", ["View Data", "Edit Data"])
 
 if page == "View Data":
