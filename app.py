@@ -12,9 +12,10 @@ with conn.session as session:
     session.execute(query)
 
 st.header('DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
-page = st.sidebar.selectbox("Pilih Menu", ["View Data","Search Data", "Edit Data"])
+page = st.sidebar.selectbox("Pilih Menu", ["View Data", "Edit Data"])
 
-# Add search options to the sidebar
+if page == "View Data":
+    # Add search options to the sidebar
     search_options = st.sidebar.multiselect("Search Data", ["cabang_perpustakaan", "nama", "gender", "type_of_book", "title", "author", "tanggal_pinjam"])
     search_query = st.sidebar.text_input("Search Query", "")
 
@@ -26,10 +27,6 @@ page = st.sidebar.selectbox("Pilih Menu", ["View Data","Search Data", "Edit Data
     else:
         data = conn.query('SELECT * FROM perpustakaan ORDER By id;', ttl="0").set_index('id')
 
-    st.dataframe(data)
-
-if page == "View Data":
-    data = conn.query('SELECT * FROM perpustakaan ORDER By id;', ttl="0").set_index('id')
     st.dataframe(data)
 
 if page == "Edit Data":
