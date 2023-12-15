@@ -1,7 +1,7 @@
 import streamlit as st
 from sqlalchemy import text
 
-st.markdown('✨ Aplikasi Manajemen Data version 1.0')
+st.markdown('✨ Aplikasi Manajemen Basis Data version 1.0')
 
 image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Unicode_0x03C3.svg/1200px-Unicode_0x03C3.svg.png"
 st.sidebar.image(image_url, caption='MBD FP3', width=100)
