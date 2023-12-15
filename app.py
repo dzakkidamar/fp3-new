@@ -12,43 +12,11 @@ with conn.session as session:
     session.execute(query)
 
 st.header('DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
-page = st.sidebar.selectbox("Pilih Menu", ["View Data", 'Search Data', "Edit Data"])
+page = st.sidebar.selectbox("Pilih Menu", ["View Data", "Edit Data"])
 
 if page == "View Data":
     data = conn.query('SELECT * FROM perpustakaan ORDER By id;', ttl="0").set_index('id')
     st.dataframe(data)
-
-if page == "Search Data":
-    search_term = st.sidebar.text_input("Search Term", "")
-search_cabang_perpustakaan = st.sidebar.checkbox("Search by Cabang Perpustakaan")
-search_nama = st.sidebar.checkbox("Search by Nama")
-search_gender = st.sidebar.checkbox("Search by Gender")
-search_type_of_book = st.sidebar.checkbox("Search by Type of Book")
-search_title = st.sidebar.checkbox("Search by Title")
-search_author = st.sidebar.checkbox("Search by Author")
-search_tanggal_pinjam = st.sidebar.checkbox("Search by Tanggal Pinjam")
-search_button = st.sidebar.button("Search")
-
-if search_button:
-    conditions = []
-    if search_cabang_perpustakaan:
-        conditions.append(data['cabang_perpustakaan'].str.contains(search_term, case=False))
-    if search_nama:
-        conditions.append(data['nama'].str.contains(search_term, case=False))
-    if search_gender:
-        conditions.append(data['gender'].str.contains(search_term, case=False))
-    if search_type_of_book:
-        conditions.append(data['type_of_book'].apply(lambda x: search_term in x))
-    if search_title:
-        conditions.append(data['title'].str.contains(search_term, case=False))
-    if search_author:
-        conditions.append(data['author'].str.contains(search_term, case=False))
-    if search_tanggal_pinjam:
-        conditions.append(data['tanggal_pinjam'].astype(str).str.contains(search_term, case=False))
-
-    if conditions:
-        filtered_data = data[conditions[0] & conditions[1] & conditions[2] & conditions[3] & conditions[4] & conditions[5] & conditions[6]]
-        st.dataframe(filtered_data)
 
 if page == "Edit Data":
     if st.button('Tambah Data'):
