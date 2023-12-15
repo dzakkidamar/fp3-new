@@ -17,11 +17,23 @@ with conn.session as session:
     session.execute(query)
 
 st.header('DATABASE PERPUSTAKAAN PERGURUAN TINGGI DI KOTA SURABAYA')
-page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data"])
+page = st.sidebar.selectbox("Pilih Menu", ["View Data", "Search Data", "Edit Data"])
 
 if page == "View Data":
-    data = conn.query('SELECT * FROM perpustakaan ORDER By id;', ttl="0").set_index('id')
+    data = conn.query('SELECT * FROM perpustakaan ORDER BY id;', ttl="0").set_index('id')
     st.dataframe(data)
+
+elif page == "Search Data":
+    search_criteria = st.selectbox("Select Search Criteria", ["cabang_perpustakaan", "nama", "gender", "type_of_book", "title", "author", "tanggal_pinjam"])
+    search_query = st.text_input(f"Search {search_criteria.capitalize()}", "")
+    
+    if st.button("Search"):
+        if search_criteria == "type_of_book":
+            data = conn.query(f"SELECT * FROM perpustakaan WHERE {search_criteria} @> ARRAY['{search_query}'] ORDER BY id;", ttl="0").set_index('id')
+        else:
+            data = conn.query(f"SELECT * FROM perpustakaan WHERE {search_criteria} ILIKE '%{search_query}%' ORDER BY id;", ttl="0").set_index('id')
+        st.dataframe(data)
+
 
 if page == "Edit Data":
     if st.button('Tambah Data'):
